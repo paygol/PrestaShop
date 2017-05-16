@@ -10,6 +10,7 @@
 [Testing](#testing) <br>
 [Important Notes](#important-notes) <br>
 
+---
 
 ### About PayGol:
 
