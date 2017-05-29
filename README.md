@@ -1,10 +1,10 @@
-<img src="paygol_logo.png" alt="PayPal - PrestaShop" />
+<img src="paygol_logo.png" alt="Paygol - PrestaShop" />
 
 
 # PrestaShop
 
-## PayGol module for Prestashop, version 1.0 <br>
-[About PayGol](#about-paygol) <br>
+## Paygol module for Prestashop, version 1.0 <br>
+[About Paygol](#about-paygol) <br>
 [Requirements](#requirements) <br>
 [Installation](#installation) <br>
 [Testing](#testing) <br>
@@ -12,16 +12,16 @@
 
 ---
 
-### About PayGol:
+### About Paygol:
 
-- PayGol is an online payment service provider that offers a wide variety of both worldwide and local payment methods.
+- Paygol is an online payment service provider that offers a wide variety of both worldwide and local payment methods.
 - Website: https://www.paygol.com 
 - Payment methods: https://www.paygol.com/pricing
     
 ### Requirements:
 
 - Working Prestashop installation (tested with prestashop v1.6.1.6, prestashop v1.6.1.0).
-- PayGol account, you can register for free at https://secure.paygol.com/register.
+- Paygol account, you can register for free at https://secure.paygol.com/register.
 - "`Standard`" type PayGol service (make sure to select "`Integrated`" in the service settings), which can be created at 
   https://www.paygol.com/en/webapps (you must be logged in).  
 
@@ -39,7 +39,7 @@
 ### Testing:
 
 - To test the newly installed module you can enable your service's "`Test`" mode at the "`My Services`" section of your panel, 
-  at PayGol's website. Be sure to change it back before going live.
+  at Paygol's website. Be sure to change it back before going live.
 
   
 ### Important Notes:
