@@ -31,14 +31,7 @@ class PayGol extends PaymentModule
         $this->displayName = $this->l('Paygol');
         $this->description = $this->l('Allow payments with Paygol');
         $this->confirmUninstall = $this->l('Are you sure you want to remove the Paygol module?');
-        /*
-        if (!isset($this->serviceid)) {
-            $this->warning = $this->l('Account Service ID');
-        }
-        if (!sizeof(Currency::checkPaymentCurrencies($this->id))) {
-            $this->warning = $this->l('No currency set for this module');
-        }
-        */
+       
     }
     public function install()
     {
@@ -69,7 +62,7 @@ class PayGol extends PaymentModule
         $orderState->delivery = false;
         $orderState->logable = false;
         
-		if ($orderState->add()) {
+	if ($orderState->add()) {
             copy(dirname(__FILE__).'/views/img/os_paygol.gif', dirname(__FILE__).'/../../img/os/'.(int)$orderState->id.'.gif');
             return $orderState->id;
         }
@@ -184,18 +177,11 @@ class PayGol extends PaymentModule
                 ));
                 return $this->display(__FILE__, 'payment.tpl');
     }
-        /*
-        public function hookPaymentReturn($params)
-        {
-            if (!$this->active)
-                return ;
-            return $this->display(__FILE__, 'paygol_validate.tpl');
-        }
-        */
+
     public function validationPaygol()
     {
             $service_id        =    Tools::getValue('service_id');
-			$country           =    Tools::getValue('country');
+	    $country           =    Tools::getValue('country');
             $price             =    Tools::getValue('price');
             $custom            =    Tools::getValue('custom');
             $currency          =    Tools::getValue('currency');
@@ -205,12 +191,12 @@ class PayGol extends PaymentModule
             $cart_id           =    $arrayCustom[0];
             $customer_id       =    $arrayCustom[1];
             $skey              =    $arrayCustom[2];
-			///
-			$key               =    Tools::getValue('key');
-			$sk 			   =    Tools::safeOutput(Configuration::get('PAYGOL_SECRETKEY'));
-			$sid 			   =    Tools::safeOutput(Configuration::get('PAYGOL_SERVICEID'));
-			if ( $sk  != $key)        { echo "Validation error"; exit; 	}
-			if ( $sid != $service_id) { echo "ID error"; exit; 	        }
+	    ///
+	    $key               =    Tools::getValue('key');
+	    $sk                =    Tools::safeOutput(Configuration::get('PAYGOL_SECRETKEY'));
+	    $sid 	       =    Tools::safeOutput(Configuration::get('PAYGOL_SERVICEID'));
+	    if ( $sk  != $key)        { echo "Validation error"; exit; 	}
+	    if ( $sid != $service_id) { echo "ID error"; exit; 	        }
 			
         if ((!empty($frmprice) && !empty($frmcurrency)) && (!empty($custom) && !empty($price))) {
                 $this->context->cart = new Cart((int)$cart_id);
