@@ -30,7 +30,7 @@
 ### Installation:
 
 - Option 1 : upload the file  via FTP, decompress the content of the "`paygol_prestashop_v1.1.zip`" file, directly in the file “`modules`” in your prestashop site.
-- Option 2 : upload the file to the server via Prestashop.  Please go to “`modules and services`”, add a new module, press “`select a file`”,  look for  the file in your computer  ("`paygol_prestashop_v1.0.zip`"), press the botón “`upload this module`”, wait until the module is installed and then configurate
+- Option 2 : upload the file to the server via Prestashop.  Please go to “`modules and services`”, add a new module, press “`select a file`”,  look for  the file in your computer  ("`paygol_prestashop_v1.1.zip`"), press the botón “`upload this module`”, wait until the module is installed and then configurate
 - Activate the module “`Paygol`” in your administration panel of Prestashop (modules and services,  module list, look for the module  “`paygol`”).  Select install and configure.  Then go to the configuration of Paygol module.
 - In the configuration of  the Paygol module you must enter:  ID of your Paygol service (you can find this number in “`my services`” in you Paygol account)
 - In the configuration of  the Paygol module you must enter:  Secret key of your Paygol service (you can find this number in “`my services`” in you Paygol account)
