@@ -218,10 +218,13 @@ class PayGol extends PaymentModule
 				{
 					foreach ($results_price as $row_var) 
 					{
+						
 						$idcurrency = $row_var['id_currency'];
 						$currency_iso = Db::getInstance()->ExecuteS('SELECT `id_currency`, `iso_code` FROM `'._DB_PREFIX_.'currency` WHERE `id_currency` = '.$idcurrency.'');
-						
-						if ($frmcurrency != $currency_iso['iso_code']) { echo "Error: Wrong currency"; exit; }	
+						foreach ($currency_iso as $row_currency)
+						{
+							if ($frmcurrency != $row_currency['iso_code']) { echo "Error: Wrong currency"; exit; }	
+						}	
 						
 						if ($frmprice != $row_var['total_paid']) { echo "Error: Wrong price"; exit; }	
 					}
