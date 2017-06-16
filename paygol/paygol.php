@@ -11,10 +11,10 @@ class PayGol extends PaymentModule
     public $gateway='https://www.paygol.com/pay';
     public function __construct()
     {
-        $this->name = 'paygol';
-        $this->tab = 'payments_gateways';
-        $this->version = '1.1';
-        $this->author = 'Paygol';
+        $this->name       = 'paygol';
+        $this->tab        = 'payments_gateways';
+        $this->version    = '1.1';
+        $this->author     = 'Paygol';
         $this->currencies = true;
         $this->currencies_mode = 'checkbox';
        	$config = Configuration::getMultiple(array('PAYGOL_SERVICEID','PAYGOL_SECRETKEY'));
@@ -31,14 +31,7 @@ class PayGol extends PaymentModule
         $this->displayName = $this->l('Paygol');
         $this->description = $this->l('Allow payments with Paygol');
         $this->confirmUninstall = $this->l('Are you sure you want to remove the Paygol module?');
-        /*
-        if (!isset($this->serviceid)) {
-            $this->warning = $this->l('Account Service ID');
-        }
-        if (!sizeof(Currency::checkPaymentCurrencies($this->id))) {
-            $this->warning = $this->l('No currency set for this module');
-        }
-        */
+       
     }
     public function install()
     {
@@ -143,7 +136,7 @@ class PayGol extends PaymentModule
                           <table border="0" width="100%" cellpadding="0" cellspacing="0" id="form">
                             <tr><td colspan="2">'.$this->l('Enter the ID and secret key of your service and then click \"Save\".').'<br /><br /></td></tr> 
                             <tr><td width="130" style="height: 30px;">'.$this->l('Service ID').':</td><td><input type="text" name="serviceid" value="'.Tools::htmlentitiesUTF8(Tools::getValue('serviceid', $this->serviceid)).'" size="40" /></td></tr>
-							<tr><td width="130" style="height: 30px;">'.$this->l('Secret Key').':</td><td><input type="text" name="secretkey" value="'.Tools::htmlentitiesUTF8(Tools::getValue('secretkey', $this->secretkey)).'" size="40" /></td></tr>
+			    <tr><td width="130" style="height: 30px;">'.$this->l('Secret Key').':</td><td><input type="text" name="secretkey" value="'.Tools::htmlentitiesUTF8(Tools::getValue('secretkey', $this->secretkey)).'" size="40" /></td></tr>
                             <tr><td width="130" style="height: 30px;">'.$this->l('URL IPN').':</td><td><br><strong>'.$url_ipn.'</strong><br>'.$this->l('Paste this URL on the \"Background URL (IPN)\" field, at the \"My Services\" section of your panel at Paygol\'s website.').'</td></tr>
                             <tr><td width="130" style="height: 30px;"></td><td align="left"><br /><input style="width:100px;" class="button" name="btnSubmit" value="'.$this->l('Save').'" type="submit" /></td></tr>
                           </table>
@@ -171,7 +164,7 @@ class PayGol extends PaymentModule
         if (!$this->active) {
             return ;
         }
-                $smarty= $this->context->smarty->assign($smarty);
+        $smarty= $this->context->smarty->assign($smarty);
         foreach ($params['cart']->getProducts() as $product) {
             $pd = ProductDownload::getIdFromIdProduct((int)($product['id_product']));
             if ($pd and Validate::isUnsignedInt($pd)) {
@@ -195,7 +188,7 @@ class PayGol extends PaymentModule
     public function validationPaygol()
     {
             $service_id        =    Tools::getValue('service_id');
-			$country           =    Tools::getValue('country');
+	    $country           =    Tools::getValue('country');
             $price             =    Tools::getValue('price');
             $custom            =    Tools::getValue('custom');
             $currency          =    Tools::getValue('currency');
@@ -213,11 +206,20 @@ class PayGol extends PaymentModule
 			$sid			   =    trim($sid);
 			if ( $sk  != $key)        { echo "Error: Wrong secret key"; exit; 	}
 			if ( $sid != $service_id) { echo "Error: Wrong service ID"; exit; 	}
-			
-        if ((!empty($frmprice) && !empty($frmcurrency)) && (!empty($custom) && !empty($price))) {
+		
+		if ((!empty($frmprice) && !empty($frmcurrency)) && (!empty($custom) && !empty($price))) {
                 $this->context->cart = new Cart((int)$cart_id);
                 $this->context->cart->id;
                 $this->context->cart->id_customer;
+				///
+				$validate_price = 'SELECT `id_cart`, `total_paid` FROM `'._DB_PREFIX_.'orders` WHERE `id_cart` = '.(int)$this->context->cart->id.'';	
+				if ($results_price = Db::getInstance()->ExecuteS($validate_price)) {
+					foreach ($results_price as $row_var) {
+					if ($frmprice != $row_var['total_paid']) { echo "Error: Wrong price"; exit; }	
+					}
+				}
+				////
+				
                 $valide_var = 'SELECT `id_order`,`id_customer`,`id_cart`,`secure_key` FROM `'._DB_PREFIX_.'orders` WHERE `id_cart` = '.(int)$this->context->cart->id.'';
             if ($results = Db::getInstance()->ExecuteS($valide_var)) {
                 foreach ($results as $row) {
@@ -235,7 +237,7 @@ class PayGol extends PaymentModule
                     }// 
                 }
             }
-        }//not null
+        }//
             
-    }//validationPaygol()
+    }//
 }
